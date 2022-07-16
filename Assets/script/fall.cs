@@ -8,7 +8,7 @@ using DG.Tweening;
 using UnityEngine.UI;
 public class fall : MonoBehaviour
 {
-    ExitGames.Client.Photon.Hashtable roomHash;
+   
     public GameObject[] Train;
     public GameObject fish;
     public GameObject camera;
@@ -16,12 +16,11 @@ public class fall : MonoBehaviour
     public GameObject Shark;
    
     public score scoreManager;
-    public Text score_text;
+    
     bool Move = true;
     Vector2 MousePosition;
     bool downflag = false;
     int number;
-    int nextNumber;
     public bool active = true;
     float Timer = 0.0f;
     float RespownTime = 3.0f;
@@ -37,13 +36,13 @@ public class fall : MonoBehaviour
         create();//‹›‚Ì¶¬
         oldpos = fish.transform.position;
 
-        roomHash.Add("PlayerPrefs",1);
+       
     }
 
     // Update is called once per frame
     void Update()
     {
-        score_text.text = "Ÿ‚Ì‹›‚Í\n" +Train[nextNumber].name;
+      
         if (Play == true)
         {
             if (active == false)
@@ -99,14 +98,10 @@ public class fall : MonoBehaviour
         active = true;
         Move = true;
 
-        if (number == null && nextNumber == null){
             number = Random.Range(0, Train.Length - 1);//ƒ‰ƒ“ƒ_ƒ€‚É¶¬
-        }
-        else {
-            number = nextNumber;
-        }
         
-        nextNumber = Random.Range(0, Train.Length - 1);
+
+      
         fish = Instantiate(Train[number], new Vector3(0.0f, camera.transform.position.y + 3.0f, 0.0f), transform.rotation);
         fish.transform.GetComponent<Rigidbody2D>().constraints = RigidbodyConstraints2D.FreezePosition;//‹›‚ÌÀ•W‚ğ“®‚©‚È‚¢‚æ‚¤‚ÉŒÅ’è
 
