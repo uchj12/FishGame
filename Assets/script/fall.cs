@@ -6,24 +6,22 @@ using System.Security.Cryptography;
 using UnityEngine.EventSystems;
 using DG.Tweening;
 using UnityEngine.UI;
+using Photon.Pun;
+using Photon.Realtime;
 public class fall : MonoBehaviour
 {
-   
     public GameObject[] Train;
     public GameObject fish;
     public GameObject camera;
     public List<GameObject> FishList = new List<GameObject>();
-    public GameObject Shark;
-   
-    public score scoreManager;
-    
-    bool Move = true;
-    Vector2 MousePosition;
-    bool downflag = false;
+    public GameObject Shark;  
+    public bool Move = true;
+    public bool downflag = false;
     int number;
     public bool active = true;
-    float Timer = 0.0f;
-    float RespownTime = 3.0f;
+    public bool buttomup = false;
+    public float Timer = 0.0f;
+    public float RespownTime = 3.0f;
     bool Play = true;
 
     private float Distance = 0;
@@ -33,44 +31,17 @@ public class fall : MonoBehaviour
     void Start()
     {
         Application.targetFrameRate = 120;
-        create();//魚の生成
+        //create();//魚の生成
         oldpos = fish.transform.position;
-
+        camera = GameObject.Find("Main Camera");
        
     }
 
     // Update is called once per frame
     void Update()
     {
-      
-        if (Play == true)
-        {
-            if (active == false)
-            {
-                Timer += Time.deltaTime;
-                if (Timer > RespownTime)
-                {
-                    if (fish.transform.position.y >= 1.0f)//魚の座標が高くなったらカメラの移動
-                    {
-                        camera.transform.position = new Vector3(0.0f, fish.transform.position.y - 1.0f, -10.0f);
-                    }
-                    Timer = 0.0f;
-                    scoreManager.Addscore();//スコアの加算
-                    create();//魚の生成
-                }
-            }
-            if (downflag == true && active == true)
-            {
-                fish.transform.Rotate(new Vector3(0, 0, -1));
-            }
-            if (Input.GetMouseButton(0) && !EventSystem.current.IsPointerOverGameObject())//ボタンを押していない、マウスクリックで魚の移動
-            {
-                if (Move == true)
-                {
-                    MovePiece();
-                }
-            }
-        }
+
+
     }
     
     public void OnButtonDown()
@@ -81,44 +52,35 @@ public class fall : MonoBehaviour
 
     public void OnButtonUp()
     {
-  
+       
+        buttomup = true;
         Move = false;
         downflag = false;
-        fish.transform.GetComponent<Rigidbody2D>().constraints = RigidbodyConstraints2D.None;//魚の座標固定を解除
         active = false;
         oldpos = fish.transform.position;
 
         GetComponent<AudioSource>().Play();  // 効果音を鳴らす
         //Impairing();
-        FishList.Add(fish);//Listに魚を格納
+        //FishList.Add(fish);//Listに魚を格納
+
     }
 
-    void create()//魚の生成
+    public void create(int _number)//魚の生成
     {
         active = true;
         Move = true;
+        //number = Random.Range(0, Train.Length - 1);//ランダムに生成
+        number = _number;      
 
-            number = Random.Range(0, Train.Length - 1);//ランダムに生成
+        fish = Instantiate(Train[number], new Vector3(0.0f, camera.transform.position.y + 3.0f, 0.0f), Quaternion.identity);
         
-
-      
-        fish = Instantiate(Train[number], new Vector3(0.0f, camera.transform.position.y + 3.0f, 0.0f), transform.rotation);
         fish.transform.GetComponent<Rigidbody2D>().constraints = RigidbodyConstraints2D.FreezePosition;//魚の座標を動かないように固定
-
-        if (FishList.Count > 3)
-        {
-            //float rnd = Random.Range(0, 10);//１０分の一の確率で生成
-            //if (rnd > 1)
-            //{
-            //    Delete_Shark();
-            //}
-        }
     }
 
-    void MovePiece()//魚を動かす
+    public void MovePiece(float MousePosX)//魚を動かす
     {
-        MousePosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-        fish.transform.position = new Vector2 (MousePosition.x, camera.transform.position.y + 3.0f);
+      
+        fish.transform.position = new Vector2 (MousePosX, camera.transform.position.y + 3.0f);
     }
 
 
@@ -141,7 +103,7 @@ public class fall : MonoBehaviour
             });
     }
 
-    void Impairing()//ランダムで魚を１０匹生成
+    public void Impairing()//ランダムで魚を１０匹生成
     {
         float rnd = Random.Range(0, 10);//１０分の一の確率で生成
         if (rnd == 1)
@@ -153,5 +115,10 @@ public class fall : MonoBehaviour
                 fish = Instantiate(Train[number], new Vector3(rnd, camera.transform.position.y + 5.0f + i * 0.5f, 0.0f), transform.rotation);
             }
         }
+    }
+
+    public void FishRelease()
+    {
+        fish.transform.GetComponent<Rigidbody2D>().constraints = RigidbodyConstraints2D.None;//魚の座標固定を解除
     }
 }

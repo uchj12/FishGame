@@ -19,7 +19,7 @@ public class start : MonoBehaviourPunCallbacks
     public GameObject MachingPanel;
 
     bool m_isConnecting;
-    RoomOptions roomOptions = new RoomOptions();
+    //RoomOptions roomOptions = new RoomOptions();
 
     void Awake()
     {
@@ -71,6 +71,7 @@ public class start : MonoBehaviourPunCallbacks
 
     public override void OnPlayerEnteredRoom(Player newPlayer)
     {
+
         if (PhotonNetwork.PlayerList.Length == 2)
         {
             Debug.Log("PUN/ランチャー：PUNによって呼び出されるOnJoinedRoom（）。 今、このクライアントはルームにいます。 ");
@@ -98,7 +99,6 @@ public class start : MonoBehaviourPunCallbacks
         JoinRandomRoomPanel.SetActive(true);
         MachingPanel.SetActive(false);
     }
-
 
 
 }
