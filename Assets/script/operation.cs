@@ -14,7 +14,7 @@ public class operation : MonoBehaviourPunCallbacks
     static operation MyInstance;
     private fall Fall;
     GameObject FALL;
-    public GameObject text;
+    public Text text;
     Text Wintext;
 
     bool GameOver = false;
@@ -39,7 +39,7 @@ public class operation : MonoBehaviourPunCallbacks
     void Start()
     {
         Wintext = GameObject.Find("Win").GetComponent<Text>();
-        text = GameObject.Find("turn");
+        text = GameObject.Find("turn").GetComponent<Text>();
         FALL = GameObject.Find("Fall");
         Fall = FALL.GetComponent<fall>();
 
@@ -157,12 +157,12 @@ public class operation : MonoBehaviourPunCallbacks
 
     void UIOn()
     {
-        text.SetActive(true);
+        text.text = "自分のターン";
     }
 
     void UIOff()
     {
-        text.SetActive(false) ;
+        text.text = "相手のターン";
     }
 
 }
