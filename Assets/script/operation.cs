@@ -56,6 +56,7 @@ public class operation : MonoBehaviourPunCallbacks
         {
              return;
         }
+
         if (!photonView.IsMine)
             return;
 
@@ -63,11 +64,12 @@ public class operation : MonoBehaviourPunCallbacks
 
         if (room.GetTurn() != acterNumber - 1)
         {
-            UIOff();
+            text.text = "相手のターン";
+          
             return;
         }
 
-        UIOn();
+        text.text = "自分のターン";
         if (Fall.active == false)
         {
             Fall.Timer += Time.deltaTime;
@@ -82,7 +84,6 @@ public class operation : MonoBehaviourPunCallbacks
 
         if (Fall.downflag == true && Fall.active == true)
         {
-            
             photonView.RPC(nameof(PlayerRotation), RpcTarget.All, new Vector3(0, 0, 1), player.ActorNumber);
         }
 
@@ -98,11 +99,13 @@ public class operation : MonoBehaviourPunCallbacks
         if (Fall.buttomup == true)
         {
             photonView.RPC(nameof(PlayerRelease), RpcTarget.All,player.ActorNumber);
+           
         }
         Fall.buttomup = false;
         if (Fall.fish.transform.position.y <= -6)
         {
             photonView.RPC(nameof(GameEnd), RpcTarget.All, player.ActorNumber);
+          
         }
 
     }
@@ -125,6 +128,7 @@ public class operation : MonoBehaviourPunCallbacks
         if (player.ActorNumber != _ActorNumber)
             return;
         Fall.fish.transform.Rotate(Rotation);
+        //photonView.RPC(nameof(RotationSync), RpcTarget.Others, Fall.fish.transform.rotation, player.ActorNumber);
     }
 
     [PunRPC]
@@ -141,6 +145,7 @@ public class operation : MonoBehaviourPunCallbacks
         if (player.ActorNumber != _ActorNumber)
             return;
         Fall.FishRelease();
+
     }
 
     [PunRPC]
@@ -154,15 +159,14 @@ public class operation : MonoBehaviourPunCallbacks
 
     }
 
-
-    void UIOn()
+    [PunRPC]
+    void RotationSync(Quaternion Rotation, int _ActorNumber )
     {
-        text.text = "自分のターン";
+        if (player.ActorNumber != _ActorNumber)
+            return;
+        Fall.fish.transform.rotation = Rotation;
+
     }
 
-    void UIOff()
-    {
-        text.text = "相手のターン";
-    }
 
 }

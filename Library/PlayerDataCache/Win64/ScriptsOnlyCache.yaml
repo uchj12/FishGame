@@ -32,6 +32,7 @@ ScriptsOnlyBuild:
     - UnityEditor.U2D.Animation.BoneGizmo
     Unity.2D.IK.Editor.dll:
     - UnityEditor.U2D.IK.IKEditorManager
+    - UnityEditor.U2D.IK.IKGizmos
     Unity.2D.IK.Runtime.dll:
     - UnityEditor.U2D.IK.IKEditorManagerHelper
     Unity.2D.Tilemap.Editor.dll:
@@ -1811,4 +1812,4 @@ ScriptsOnlyBuild:
   - Assets/Scenes/Title.unity
   - Assets/Scenes/main.unity
   - Assets/Scenes/GameOver.unity
-  playerPath: C:/Users/mitsu/OneDrive/Documents/GitHub/FishGame/Build/summer project.exe
+  playerPath: C:/Users/G0808/Documents/GitHub/FishGame/Build/summer project.exe

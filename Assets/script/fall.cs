@@ -61,7 +61,7 @@ public class fall : MonoBehaviour
 
         GetComponent<AudioSource>().Play();  // Œø‰Ê‰¹‚ğ–Â‚ç‚·
         //Impairing();
-        //FishList.Add(fish);//List‚É‹›‚ğŠi”[
+        FishList.Add(fish);//List‚É‹›‚ğŠi”[
 
     }
 
@@ -120,5 +120,6 @@ public class fall : MonoBehaviour
     public void FishRelease()
     {
         fish.transform.GetComponent<Rigidbody2D>().constraints = RigidbodyConstraints2D.None;//‹›‚ÌÀ•WŒÅ’è‚ğ‰ğœ
+        fish.transform.rotation = fish.transform.rotation;
     }
 }
