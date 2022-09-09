@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 2657541899559045883}
   - component: {fileID: -2129917910822945516}
   - component: {fileID: -2569100555197103816}
+  - component: {fileID: -6201160457667694691}
   m_Layer: 0
   m_Name: jama
   m_TagString: Untagged
@@ -123,8 +124,9 @@ MonoBehaviour:
   prefixField: -1
   Synchronization: 3
   OwnershipTransfer: 0
-  observableSearch: 2
-  ObservedComponents: []
+  observableSearch: 0
+  ObservedComponents:
+  - {fileID: -6201160457667694691}
   sceneViewId: 0
   InstantiationId: 0
   isRuntimeInstantiated: 0
@@ -684,3 +686,19 @@ PolygonCollider2D:
       - {x: -0.050366208, y: -10.25456}
       - {x: -0.09065918, y: -10.153828}
       - {x: -0.120878905, y: -10.073242}
+--- !u!114 &-6201160457667694691
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 783956821799519572}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 627855c7f81362d41938ffe0b1475957, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_SynchronizePosition: 1
+  m_SynchronizeRotation: 1
+  m_SynchronizeScale: 0
+  m_UseLocal: 1

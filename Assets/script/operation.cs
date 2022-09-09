@@ -99,7 +99,7 @@ public class operation : MonoBehaviourPunCallbacks
         if (Fall.buttomup == true)
         {
             photonView.RPC(nameof(PlayerRelease), RpcTarget.All,player.ActorNumber);
-           
+            photonView.RPC(nameof(RotationSync), RpcTarget.Others, Fall.fish.transform.rotation, player.ActorNumber);
         }
         Fall.buttomup = false;
         if (Fall.fish.transform.position.y <= -6)
@@ -128,7 +128,7 @@ public class operation : MonoBehaviourPunCallbacks
         if (player.ActorNumber != _ActorNumber)
             return;
         Fall.fish.transform.Rotate(Rotation);
-        //photonView.RPC(nameof(RotationSync), RpcTarget.Others, Fall.fish.transform.rotation, player.ActorNumber);
+        
     }
 
     [PunRPC]
@@ -168,5 +168,12 @@ public class operation : MonoBehaviourPunCallbacks
 
     }
 
+    [PunRPC]
+    void PositionReset(Quaternion Rotation, int _ActorNumber)
+    {
+        if (player.ActorNumber != _ActorNumber)
+            return;
 
+
+    }
 }

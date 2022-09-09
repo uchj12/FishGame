@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 6572159064819221918}
   - component: {fileID: 7092361241496552508}
   - component: {fileID: 1671616695648308205}
+  - component: {fileID: -438594021504566036}
   m_Layer: 0
   m_Name: wanted
   m_TagString: Untagged
@@ -123,8 +124,9 @@ MonoBehaviour:
   prefixField: -1
   Synchronization: 3
   OwnershipTransfer: 0
-  observableSearch: 2
-  ObservedComponents: []
+  observableSearch: 0
+  ObservedComponents:
+  - {fileID: -438594021504566036}
   sceneViewId: 0
   InstantiationId: 0
   isRuntimeInstantiated: 0
@@ -311,3 +313,19 @@ PolygonCollider2D:
       - {x: -2.96, y: -4.785}
       - {x: -2.9299998, y: -4.805}
       - {x: -1.8299999, y: -4.805}
+--- !u!114 &-438594021504566036
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5165725543247726099}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 627855c7f81362d41938ffe0b1475957, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_SynchronizePosition: 1
+  m_SynchronizeRotation: 1
+  m_SynchronizeScale: 0
+  m_UseLocal: 1

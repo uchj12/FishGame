@@ -49,6 +49,7 @@ MonoBehaviour:
   - UIOn
   - GameEnd
   - RotationSync
+  - PositionReset
   DisableAutoOpenWizard: 1
   ShowSettings: 1
   DevRegionSetOnce: 0

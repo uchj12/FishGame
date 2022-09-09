@@ -100,6 +100,7 @@ public class fall : MonoBehaviour
                 FishList.RemoveAt(number);
                 Shark.transform.position = new Vector3(4, 5, 0);
                 Play = true;
+                
             });
     }
 
