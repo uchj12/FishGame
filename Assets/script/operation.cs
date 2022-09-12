@@ -48,7 +48,6 @@ public class operation : MonoBehaviourPunCallbacks
 
         photonView.RPC(nameof(CreatRandomFish), RpcTarget.All, player.ActorNumber, 1);
     }
-
     // Update is called once per frame
     void Update()
     {
@@ -68,6 +67,7 @@ public class operation : MonoBehaviourPunCallbacks
           
             return;
         }
+        
 
         text.text = "é©ï™ÇÃÉ^Å[Éì";
         if (Fall.active == false)
@@ -78,6 +78,11 @@ public class operation : MonoBehaviourPunCallbacks
                 Fall.Timer = 0;
                 
                 photonView.RPC(nameof(CreatRandomFish), RpcTarget.All, player.ActorNumber, Random.Range(0, Fall.Train.Length - 1));
+
+                for (int i = 0; i < Fall.FishList.Count; i++)
+                {
+                    photonView.RPC(nameof(PositionReset), RpcTarget.All, Fall.FishList[i].transform.position, Fall.FishList[i].transform.rotation, i, player.ActorNumber);
+                }
             }
         }
 
@@ -99,7 +104,7 @@ public class operation : MonoBehaviourPunCallbacks
         if (Fall.buttomup == true)
         {
             photonView.RPC(nameof(PlayerRelease), RpcTarget.All,player.ActorNumber);
-            photonView.RPC(nameof(RotationSync), RpcTarget.Others, Fall.fish.transform.rotation, player.ActorNumber);
+            //photonView.RPC(nameof(RotationSync), RpcTarget.Others, Fall.fish.transform.rotation, player.ActorNumber);
         }
         Fall.buttomup = false;
         if (Fall.fish.transform.position.y <= -6)
@@ -119,6 +124,7 @@ public class operation : MonoBehaviourPunCallbacks
         Fall.create(_number);
 
         room.SetTurn((room.GetTurn() + 1) % 2);
+        
     }
 
 
@@ -169,11 +175,12 @@ public class operation : MonoBehaviourPunCallbacks
     }
 
     [PunRPC]
-    void PositionReset(Quaternion Rotation, int _ActorNumber)
+    void PositionReset(Vector3 pos ,Quaternion Rotation, int number , int _ActorNumber)
     {
         if (player.ActorNumber != _ActorNumber)
             return;
 
-
+        Fall.FishList[number].transform.position = pos;
+        Fall.FishList[number].transform.rotation = Rotation;
     }
 }

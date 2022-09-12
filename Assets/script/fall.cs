@@ -25,14 +25,14 @@ public class fall : MonoBehaviour
     bool Play = true;
 
     private float Distance = 0;
-    Vector3 oldpos;
+   
    
     // Start is called before the first frame update
     void Start()
     {
         Application.targetFrameRate = 120;
         //create();//‹›‚Ì¶¬
-        oldpos = fish.transform.position;
+       
         camera = GameObject.Find("Main Camera");
        
     }
@@ -47,7 +47,7 @@ public class fall : MonoBehaviour
     public void OnButtonDown()
     {
         downflag = true;
-        oldpos = new Vector3(0,0,0);
+       
     }
 
     public void OnButtonUp()
@@ -57,8 +57,7 @@ public class fall : MonoBehaviour
         Move = false;
         downflag = false;
         active = false;
-        oldpos = fish.transform.position;
-
+      
         GetComponent<AudioSource>().Play();  // Œø‰Ê‰¹‚ğ–Â‚ç‚·
         //Impairing();
         FishList.Add(fish);//List‚É‹›‚ğŠi”[
@@ -121,6 +120,5 @@ public class fall : MonoBehaviour
     public void FishRelease()
     {
         fish.transform.GetComponent<Rigidbody2D>().constraints = RigidbodyConstraints2D.None;//‹›‚ÌÀ•WŒÅ’è‚ğ‰ğœ
-        fish.transform.rotation = fish.transform.rotation;
     }
 }
