@@ -21,7 +21,7 @@ public class fall : MonoBehaviour
     public bool active = true;
     public bool buttomup = false;
     public float Timer = 0.0f;
-    public float RespownTime = 3.0f;
+    public float RespownTime = 10.0f;
     bool Play = true;
 
     private float Distance = 0;
@@ -60,7 +60,7 @@ public class fall : MonoBehaviour
       
         GetComponent<AudioSource>().Play();  // Œø‰Ê‰¹‚ğ–Â‚ç‚·
         //Impairing();
-        FishList.Add(fish);//List‚É‹›‚ğŠi”[
+        
 
     }
 
@@ -120,5 +120,6 @@ public class fall : MonoBehaviour
     public void FishRelease()
     {
         fish.transform.GetComponent<Rigidbody2D>().constraints = RigidbodyConstraints2D.None;//‹›‚ÌÀ•WŒÅ’è‚ğ‰ğœ
+        FishList.Add(fish);//List‚É‹›‚ğŠi”[
     }
 }

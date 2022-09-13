@@ -14,7 +14,10 @@ public class operation : MonoBehaviourPunCallbacks
     static operation MyInstance;
     private fall Fall;
     GameObject FALL;
+    GameObject Traget;
     public Text text;
+    int FishNum = 0;
+    
     Text Wintext;
 
     bool GameOver = false;
@@ -56,6 +59,9 @@ public class operation : MonoBehaviourPunCallbacks
              return;
         }
 
+            
+
+       
         if (!photonView.IsMine)
             return;
 
@@ -73,16 +79,13 @@ public class operation : MonoBehaviourPunCallbacks
         if (Fall.active == false)
         {
             Fall.Timer += Time.deltaTime;
-            if (Fall.Timer > Fall.RespownTime)
+            if (Fall.Timer > 5)
             {
                 Fall.Timer = 0;
                 
                 photonView.RPC(nameof(CreatRandomFish), RpcTarget.All, player.ActorNumber, Random.Range(0, Fall.Train.Length - 1));
 
-                for (int i = 0; i < Fall.FishList.Count; i++)
-                {
-                    photonView.RPC(nameof(PositionReset), RpcTarget.All, Fall.FishList[i].transform.position, Fall.FishList[i].transform.rotation, i, player.ActorNumber);
-                }
+              
             }
         }
 
@@ -104,14 +107,10 @@ public class operation : MonoBehaviourPunCallbacks
         if (Fall.buttomup == true)
         {
             photonView.RPC(nameof(PlayerRelease), RpcTarget.All,player.ActorNumber);
-            //photonView.RPC(nameof(RotationSync), RpcTarget.Others, Fall.fish.transform.rotation, player.ActorNumber);
-        }
-        Fall.buttomup = false;
-        if (Fall.fish.transform.position.y <= -6)
-        {
-            photonView.RPC(nameof(GameEnd), RpcTarget.All, player.ActorNumber);
           
         }
+        Fall.buttomup = false;
+       
 
     }
 
@@ -124,7 +123,8 @@ public class operation : MonoBehaviourPunCallbacks
         Fall.create(_number);
 
         room.SetTurn((room.GetTurn() + 1) % 2);
-        
+        photonView.RPC(nameof(RotationSync), RpcTarget.Others, player.ActorNumber);
+
     }
 
 
@@ -155,23 +155,32 @@ public class operation : MonoBehaviourPunCallbacks
     }
 
     [PunRPC]
-    void GameEnd(int _ActorNumber)
+    void GameEnd(Vector3 pos,int _ActorNumber)
     {
-        Wintext.text = "プレイヤー" + _ActorNumber + "の負け";
-        GameOver = true;
-        if (player.ActorNumber != _ActorNumber)
-            return;
-        Win = false;
+        if (Fall.fish.transform.position.y <= -6)
+        { 
+            Wintext.text = "プレイヤー" + _ActorNumber + "の負け";
+            GameOver = true;
+            if (player.ActorNumber != _ActorNumber)
+                return;
+            Win = false;
+        }
 
     }
 
     [PunRPC]
-    void RotationSync(Quaternion Rotation, int _ActorNumber )
+    void RotationSync(int _ActorNumber )
     {
         if (player.ActorNumber != _ActorNumber)
             return;
-        Fall.fish.transform.rotation = Rotation;
 
+        FishNum = Fall.FishList.Count;
+        for (int i = 0; i < FishNum; i++)
+        {
+            Traget = Fall.FishList[i];
+            photonView.RPC(nameof(GameEnd), RpcTarget.All,Traget.transform.position, player.ActorNumber);
+            photonView.RPC(nameof(PositionReset), RpcTarget.All, Traget.transform.position, Traget.transform.rotation, i, player.ActorNumber);
+        }
     }
 
     [PunRPC]

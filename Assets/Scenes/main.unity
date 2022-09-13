@@ -5476,6 +5476,18 @@ PrefabInstance:
       propertyPath: camera
       value: 
       objectReference: {fileID: 290530682}
+    - target: {fileID: 5860507794931550572, guid: 5034c6bb3b81970488e0fcd67517ee7b, type: 3}
+      propertyPath: Train.Array.size
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 5860507794931550572, guid: 5034c6bb3b81970488e0fcd67517ee7b, type: 3}
+      propertyPath: FishList.Array.size
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5860507794931550572, guid: 5034c6bb3b81970488e0fcd67517ee7b, type: 3}
+      propertyPath: Train.Array.data[4]
+      value: 
+      objectReference: {fileID: 783956821799519572, guid: ed4d906d7bdac1941ade082f2c2bcce0, type: 3}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 5034c6bb3b81970488e0fcd67517ee7b, type: 3}
 --- !u!1 &1839580617
